@@ -1,0 +1,7 @@
+#error {
+    color: red;
+}
+
+#success {
+    color: rgb(0, 255, 0);
+}
