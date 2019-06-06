@@ -1,29 +1,6 @@
 <?php
 session_start();
-function checkInDB($name, $password) {
-    $servername = 'localhost:3360';
-    $dbusername = 'ankit';
-    $dbpassword = 'ag@12345';
-
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=AtomUsers", $dbusername, $dbpassword);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $conn->prepare("SELECT * FROM Users WHERE username='$name'");
-        $stmt->execute();
-
-        // set the resulting array to associative
-        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $entry = $stmt->fetchAll();
-        if(count($entry) == 0)
-            return false;
-        else
-            return $entry[0]['password']==$password;
-    }
-    catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-    }
-}
+include 'dbcalls.php';
 
 if(isset($_SESSION["name"])) {
     header("Location:dashboard.php");

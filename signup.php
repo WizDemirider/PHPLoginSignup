@@ -1,25 +1,6 @@
 <?php
 session_start();
-function saveInDB($name, $password, $email) {
-    $servername = 'localhost:3360';
-    $dbusername = 'ankit';
-    $dbpassword = 'ag@12345';
-
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=AtomUsers", $dbusername, $dbpassword);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO Users (username, password, email)
-        VALUES ('$name', '$password', '$email')";
-        // use exec() because no results are returned
-        $conn->exec($sql);
-        return true;
-    }
-    catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-        return false;
-    }
-}
+include 'dbcalls.php';
 
 if(isset($_SESSION["name"])) {
     header("Location:dashboard.php");
