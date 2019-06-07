@@ -6,6 +6,7 @@ if(isset($_SESSION["name"])) {
 }
 
 $message = "";
+$success_message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(empty($_POST["username"]))
     {
