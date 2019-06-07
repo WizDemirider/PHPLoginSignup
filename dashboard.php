@@ -15,14 +15,28 @@ if (!isset($_SESSION["name"]))
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-    <div>
-        <button onclick="window.location.href = 'logout.php';">logout</button>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link active" href="logout.php">Logout</a></li>
+    </ul>
+    </nav>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="centertext">
+                    <h1>DASHBOARD</h1>
+                    <hr>
+                </div>
+                <div class="centertext p-1">
+                <?php
+                    echo "welcome <b>".$_SESSION["name"]."</b> you're logged in!<br>";
+                ?>
+                </div>
+            </div>
+        </div>
     </div>
-    <h2>DASHBOARD</h2>
-    <?php
-        echo "welcome ".$_SESSION["name"]." you're logged in!<br>";
-    ?>
     </body>
 </html>

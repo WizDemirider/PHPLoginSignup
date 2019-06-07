@@ -25,14 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $name = test_input($_POST["username"]);
         $password = test_input($_POST["password"]);
         $found = checkInDB($name, $password);
-        if($found)
+        if(gettype($found)=="boolean" && $found)
         {
             $_SESSION["name"] = $name;
             header("Location:dashboard.php");
         }
-        else
+        else if(gettype($found)=="boolean" && !$found)
         {
             $message = "Username or password is incorrect!";
+        }
+        else
+        {
+            $message = $found;
         }
     }
 }
@@ -53,20 +57,43 @@ function test_input($data) {
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-    <h1>LOGIN</h1>
-        <a href="signup.php">Signup</a>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <p id = "error">
-                <?php
-                echo $message;
-                ?>
-            </p>
-            Username: <input type="text" name="username"><br>
-            Password: <input type="password" name="password"><br>
-            <a href="forgotPassword.php">Forgot Password</a>
-            <button type="submit">Submit</button>
-        </form>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link active" href="login.php">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="signup.php">Signup</a></li>
+    </ul>
+    </nav>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="card offset-3 col-6">
+                <div class="card-title centertext">
+                    <h1>LOGIN</h1>
+                    <hr>
+                </div>
+                <div class="card-body centertext p-1">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <p id = "error">
+                            <?php
+                            echo $message;
+                            ?>
+                        </p>
+                        <p>
+                        <label>Username:</label>
+                        <input type="text" name="username">
+                        </p>
+                        <p>
+                        <label>Password:</label>
+                        <input type="password" name="password">
+                        </p>
+                        <p><button type="submit" class="btn btn-primary">Submit</button></p>
+                        <p class="right"><a href="forgotPassword.php">Forgot Password</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </body>
 </html>

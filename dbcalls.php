@@ -16,8 +16,7 @@ function saveInDB($name, $password, $email) {
         return true;
     }
     catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-        return false;
+        return "Connection failed: " . $e->getMessage();
     }
 }
 
@@ -43,7 +42,7 @@ function checkInDB($name, $password) {
             return $entry[0]['password']==$hashedPassword;
     }
     catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
+        return "Connection failed: " . $e->getMessage();
     }
 }
 
@@ -62,11 +61,13 @@ function getEntryFromDB($name) {
         // set the resulting array to associative
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $entry = $stmt->fetchAll();
-        return $entry[0];
+        if(count($entry)>0)
+            return $entry[0];
+        else
+            return "No Such User Found!";
     }
     catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-        return NULL;
+        return "Connection failed: " . $e->getMessage();
     }
 }
 
@@ -85,8 +86,7 @@ function changePassword($name, $newPassword) {
         return true;
     }
     catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-        return false;
+        return "Connection failed: " . $e->getMessage();
     }
 }
 

@@ -33,10 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = test_input($_POST["password"]);
         $email = test_input($_POST["email"]);
         $saved = saveInDB($name, $password, $email);
-        if($saved)
+        if(gettype($saved)=="boolean" && $saved)
         {
             $_SESSION["name"] = $name;
             echo '<script>window.location.href = "dashboard.php";</script>';
+        }
+        else
+        {
+            $message = $saved;
         }
     }
 }
@@ -48,6 +52,7 @@ function test_input($data) {
     return $data;
 }
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -57,20 +62,46 @@ function test_input($data) {
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-    <h2>SIGNUP</h2>
-    <a href="login.php">Login</a>
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-            <p id = "error">
-                <?php
-                echo $message;
-                ?>
-            </p>
-            Username: <input type="text" name="username"><br>
-            Password: <input type="password" name="password"><br>
-            Email: <input type="text" name="email"><br>
-            <button type="submit">Submit</button>
-        </form>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+        <li class="nav-item"><a class="nav-link active" href="signup.php">Signup</a></li>
+    </ul>
+    </nav>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="card offset-3 col-6">
+                <div class="card-title centertext">
+                    <h1>SIGNUP</h1>
+                    <hr>
+                </div>
+                <div class="card-body centertext p-1">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <p id = "error">
+                            <?php
+                            echo $message;
+                            ?>
+                        </p>
+                        <p>
+                        <label>Username:</label>
+                        <input type="text" name="username">
+                        </p>
+                        <p>
+                        <label>Password:</label>
+                        <input type="password" name="password">
+                        </p>
+                        <p>
+                        <label>&nbsp;&nbsp;&nbsp;Email:&nbsp;&nbsp;&nbsp;</label>
+                        <input type="text" name="email">
+                        </p>
+                        <p><button type="submit" class="btn btn-primary">Submit</button></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     </body>
 </html>
