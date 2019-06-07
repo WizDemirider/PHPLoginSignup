@@ -3,16 +3,16 @@ A project built as part of learning PHP for the Atom Technologies internship.
 
 ## Login:
 
-![login](img/login?raw=true)
+![login](/img/login?raw=true)
 
 ## Signup:
 
-![signup](img/signup?raw=true)
+![signup](/img/signup?raw=true)
 
 ## Reset Password:
 
-![reset password](img/reset_password?raw=true)
+![reset password](/img/reset_password?raw=true)
 
 ## Dashboard:
 
-![dashboard](img/dash?raw=true)
+![dashboard](/img/dash?raw=true)
